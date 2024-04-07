@@ -20,11 +20,13 @@ async function main() {
     id: argv.id,
     url: argv.url,
   };
+  console.log("====competitor====");
+  console.log(process.env["WSH_SCORING_TARGET_PATHS"]);
 
   const targetPaths = JSON.parse(
     process.env["WSH_SCORING_TARGET_PATHS"] as string
   );
-  console.log("====targetPaths====", targetPaths);
+  console.log("====targetPaths====2", targetPaths);
 
   const result = await scoring(competitor, targetPaths);
 
