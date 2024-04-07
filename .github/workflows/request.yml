@@ -7,19 +7,10 @@ on:
     types:
       - created
 env:
-  TZ: 'Asia/Tokyo'
+  TZ: "Asia/Tokyo"
 jobs:
   request:
     runs-on: ubuntu-20.04
-    if: |
-      (contains(github.event.issue.labels.*.name, 'registration')) && (
-        (github.event_name == 'issues') || (
-          github.event_name == 'issue_comment' &&
-          !github.event.issue.pull_request &&
-          startsWith(github.event.comment.body, '/retry') &&
-          (github.actor == github.event.issue.user.login)
-        )
-      )
     steps:
       - name: Initialize
         uses: actions/github-script@9ac08808f993958e9de277fe43a64532a609130e # renovate: tag=v6.0.0
@@ -54,8 +45,8 @@ jobs:
         uses: peter-murray/issue-forms-body-parser@fbc019fcec5774d67d4d611c47bf0e87365eb75e # renovate: tag=v2.0.0
         with:
           issue_id: ${{ github.event.issue.number }}
-          label_marker_start: '{{'
-          label_marker_end: '}}'
+          label_marker_start: "{{"
+          label_marker_end: "}}"
       - name: Create payload
         uses: actions/github-script@9ac08808f993958e9de277fe43a64532a609130e # renovate: tag=v6.0.0
         with:
