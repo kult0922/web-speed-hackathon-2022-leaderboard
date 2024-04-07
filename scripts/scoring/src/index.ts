@@ -1,17 +1,17 @@
-import yargs from 'yargs';
+import yargs from "yargs";
 
-import type { Competitor } from './types';
-import { logger } from './logger';
-import { scoring } from './scoring';
+import type { Competitor } from "./types";
+import { logger } from "./logger";
+import { scoring } from "./scoring";
 
 async function main() {
   const argv = await yargs
-    .option('id', {
-      type: 'string',
+    .option("id", {
+      type: "string",
       demandOption: true,
     })
-    .option('url', {
-      type: 'string',
+    .option("url", {
+      type: "string",
       demandOption: true,
     })
     .help().argv;
@@ -21,11 +21,14 @@ async function main() {
     url: argv.url,
   };
 
-  const targetPaths = JSON.parse(process.env['WSH_SCORING_TARGET_PATHS'] as string);
+  const targetPaths = JSON.parse(
+    process.env["WSH_SCORING_TARGET_PATHS"] as string
+  );
+  console.log("====targetPaths====", targetPaths);
 
   const result = await scoring(competitor, targetPaths);
 
-  if ('error' in result.result) {
+  if ("error" in result.result) {
     throw result.result.error;
   }
   console.log(`::set-output name=export::${JSON.stringify(result)}`);
